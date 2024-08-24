@@ -41,7 +41,7 @@ export default function Page() {
             <CardFooter>
               <Button className="w-full">Iniciar sesión</Button>
             </CardFooter>
-            <CardDescription>¿Nuevo usuario? Registrate</CardDescription>
+            <CardDescription className="text-center">¿Nuevo usuario? Registrate</CardDescription>
           </Card>
         </TabsContent>
         <TabsContent value="password">
