@@ -13,7 +13,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <body className={inter.className}>
+      <body
+        className={`${inter.className} transition-shadow duration-300 ease-in-out grid grid-rows-[auto,1fr,auto] min-h-screen`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -22,6 +24,12 @@ export default function RootLayout({ children }) {
         >
           <TopHeader />
           {children}
+
+          <footer>
+            <p className="text-xs text-center p-4">
+              Hecho con ❤️ por UniDev en Univalle Palmira
+            </p>
+          </footer>
         </ThemeProvider>
       </body>
     </html>
