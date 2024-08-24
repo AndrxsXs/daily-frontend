@@ -24,7 +24,7 @@ export default function Page() {
           <Card>
             <CardHeader>
               <CardDescription className="text-center">
-                Bienvenido de nuevo. Organiza tu día y mantén tus tareas bajo
+                ¡Hola! Organiza tu día y mantén tus tareas bajo
                 control.
               </CardDescription>
             </CardHeader>
