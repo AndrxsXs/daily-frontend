@@ -79,8 +79,14 @@ export default function Page() {
                 </div>
                 <CardHeader>
                   <CardDescription className="text-center">
-                    <Input readOnly value="Nombre de la tarea"/>
-                    <Button variant="outline">Rehacer</Button>
+                    <div className="flex items-center space-x-2">
+                      <Input
+                        readOnly
+                        value="Nombre de la tarea"
+                        className="flex-grow"
+                      />
+                      <Button variant="outline">Rehacer</Button>
+                    </div>
                   </CardDescription>
                 </CardHeader>
               </div>
