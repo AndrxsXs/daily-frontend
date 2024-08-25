@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Trash2 } from "lucide-react";
 import { Pencil } from "lucide-react";
+import { X } from "lucide-react";
 import { LayoutList } from "lucide-react";
 import { ListChecks } from "lucide-react";
 import { Plus } from "lucide-react";
@@ -125,7 +126,7 @@ export default function Page() {
                         <div className="relative">
                           <Textarea
                             id="message"
-                            className="mt-1 pr-24 pb-10" 
+                            className="mt-1 pr-24 pb-10"
                             readOnly
                             style={{
                               outline: "none",
@@ -139,7 +140,7 @@ export default function Page() {
                           />
                           <Button
                             className="absolute bottom-2 right-2" // Posicionamos el botón
-                            size="sm" 
+                            size="sm"
                           >
                             <Pencil className="h-4 w-4 mr-1" /> Editar
                           </Button>
@@ -236,12 +237,14 @@ export default function Page() {
                   <Label htmlFor="message">Detalles</Label>
                   <Textarea id="message" className="mt-1" />
                 </div>
-                <div className="flex justify-end">
-                  <Button className="mt-4 px-4 py-2">
+                <div className="flex justify-end space-x-4">
+                  <Button variant="outline">Cancelar</Button>
+                  <Button className="px-4 py-2">
                     <Plus className="mr-2 h-4 w-4" />
                     Crear
                   </Button>
                 </div>
+                
               </div>
             </CardHeader>
           </Card>
