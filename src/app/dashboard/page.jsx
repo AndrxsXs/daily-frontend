@@ -26,6 +26,9 @@ import { redirect } from "next/navigation";
 import React, { useState } from "react";
 
 export default function Page() {
+  // Estado para controlar que se vea el textarea en tareas finalizadas.
+  const [showTextarea, setShowTextarea] = useState(false);
+  // Se obtiene el estado de la sesión.
   const { data: session, status } = useSession();
 
   if (status === "loading") {
@@ -36,9 +39,6 @@ export default function Page() {
     redirect("/start");
     return <p>Acceso denegado</p>;
   }
-
-  // Estado para controlar que se vea el textarea en tareas finalizadas.
-  const [showTextarea, setShowTextarea] = useState(false);
 
   return (
     <main className="grid justify-center">
