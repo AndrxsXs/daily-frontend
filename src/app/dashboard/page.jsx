@@ -48,7 +48,6 @@ export default function Page() {
             </span>
           </TabsTrigger>
 
-
           <TabsTrigger value="create">
             <span className="px-2 py-1 rounded transition-all duration-300 text-[#683142] hover:bg-white hover:shadow-md">
               <Plus className="inline h-4 w-4" /> Crear tarea
@@ -65,7 +64,6 @@ export default function Page() {
           </Card>
         </TabsContent>
 
-
         {/* Modulo de tareas finalizadas */}
         <TabsContent value="finished">
           <Card className="overflow-hidden w-full">
@@ -81,7 +79,8 @@ export default function Page() {
                 </div>
                 <CardHeader>
                   <CardDescription className="text-center">
-                    Contenido
+                    <Input readOnly value="Nombre de la tarea"/>
+                    <Button variant="outline">Rehacer</Button>
                   </CardDescription>
                 </CardHeader>
               </div>
@@ -101,7 +100,6 @@ export default function Page() {
             </div>
           </Card>
         </TabsContent>
-
 
         <TabsContent value="create">
           <Card className="overflow-hidden w-full">
@@ -130,7 +128,6 @@ export default function Page() {
             </CardHeader>
           </Card>
         </TabsContent>
-
       </Tabs>
     </div>
   );
