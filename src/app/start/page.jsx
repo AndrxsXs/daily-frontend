@@ -25,6 +25,7 @@ export default function Page() {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -41,15 +42,15 @@ export default function Page() {
     setError("Credenciales inválidas");
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e, credentials) => {
     e.preventDefault();
     setError("");
     try {
       setLoading(true);
       const result = await signIn("credentials", {
         redirect: false,
-        username: loginData.username,
-        password: loginData.password,
+        username: credentials.username,
+        password: credentials.password,
       });
       if (result.error) {
         handleInvalidCredentials();
@@ -66,9 +67,9 @@ export default function Page() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setSending(true);
     setError("");
     try {
-      setLoading(true);
       const response = await fetch(
         "https://confident-cooperation-production.up.railway.app/register",
         {
@@ -78,16 +79,22 @@ export default function Page() {
         }
       );
       if (response.ok) {
-        // Registro exitoso, ahora iniciamos sesión automáticamente
-        await handleLogin(e);
-        setLoading(false);
+        console.log("Registro exitoso");
+        // Iniciar sesión automáticamente después del registro
+        await signIn("credentials", {
+          redirect: false,
+          username: registerData.username,
+          password: registerData.password,
+        });
+        router.push("/dashboard");
       } else {
         const data = await response.json();
         setError(data.message || "Error en el registro");
       }
     } catch (error) {
       setError("Ocurrió un error durante el registro");
-      setLoading(false);
+    } finally {
+      setSending(false);
     }
   };
 
@@ -149,15 +156,15 @@ export default function Page() {
           <Card>
             <CardHeader>
               <CardDescription className="text-center">
-                Ingresa tu usuario y contraseña para crear tu cuenta.
+                Ingresa un nombre de usuario y contraseña para crear tu cuenta.
               </CardDescription>
             </CardHeader>
             <form onSubmit={handleRegister}>
               <CardContent className="space-y-2">
                 <div className="space-y-1">
-                  <Label htmlFor="register-username">Usuario</Label>
+                  <Label htmlFor="username">Usuario</Label>
                   <Input
-                    id="register-username"
+                    id="username"
                     placeholder="Nombre de usuario"
                     value={registerData.username}
                     onChange={handleRegisterChange}
@@ -165,9 +172,10 @@ export default function Page() {
                   />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="register-password">Contraseña</Label>
+                  <Label htmlFor="password">Contraseña</Label>
                   <Input
-                    id="register-password"
+                    id="password"
+                    placeholder="Contraseña"
                     type="password"
                     value={registerData.password}
                     onChange={handleRegisterChange}
@@ -176,9 +184,16 @@ export default function Page() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit" className="w-full">
-                  Registrar
-                </Button>
+                {!sending ? (
+                  <Button type="submit" className="w-full">
+                    Registrar
+                  </Button>
+                ) : (
+                  <Button disabled className="w-full">
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Cargando
+                  </Button>
+                )}
               </CardFooter>
             </form>
             {error && <p className="text-red-500 text-center">{error}</p>}
