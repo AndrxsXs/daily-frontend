@@ -39,22 +39,38 @@ export default function Page() {
   const [showTextarea, setShowTextarea] = useState(false);
 
   return (
-    <div className="grid justify-center">
-      <Tabs defaultValue="pending" className="w-[800px] ">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="pending">
-            <span className="px-2 py-1 rounded transition-all duration-300 text-[#683142] hover:bg-white hover:shadow-md">
+    <main className="grid justify-center">
+      <Tabs defaultValue="pending" className="w-[60dvw] max-w-[1000px]">
+        <TabsList
+          className="grid w-full grid-cols-3 gap-2
+          text-tinto-500
+          dark:text-tinto-200"
+        >
+          <TabsTrigger
+            value="pending"
+            className="
+          data-[state=active]:aria-selected:text-tinto-700 hover:shadow-sm hover:bg-tinto-50 dark:hover:bg-tinto-950"
+          >
+            <span className="px-2 rounded transition-shadow duration-300 ">
               <LayoutList className="inline h-4 w-4" /> Pendientes
             </span>
           </TabsTrigger>
-          <TabsTrigger value="finished">
-            <span className="px-2 py-1 rounded transition-all duration-300 text-[#683142] hover:bg-white hover:shadow-md">
+          <TabsTrigger
+            value="finished"
+            className="
+          data-[state=active]:aria-selected:text-tinto-700 hover:shadow-sm hover:bg-tinto-50 dark:hover:bg-tinto-950"
+          >
+            <span className="px-2 rounded transition-shadow duration-300 ">
               <ListChecks className="inline h-4 w-4" /> Finalizadas
             </span>
           </TabsTrigger>
 
-          <TabsTrigger value="create">
-            <span className="px-2 py-1 rounded transition-all duration-300 text-[#683142] hover:bg-white hover:shadow-md">
+          <TabsTrigger
+            value="create"
+            className="
+          data-[state=active]:aria-selected:text-tinto-700 hover:shadow-sm hover:bg-tinto-50 dark:hover:bg-tinto-950"
+          >
+            <span className="px-2 rounded transition-shadow duration-300 ">
               <Plus className="inline h-4 w-4" /> Crear tarea
             </span>
           </TabsTrigger>
@@ -164,6 +180,6 @@ export default function Page() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+    </main>
   );
 }
