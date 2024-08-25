@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CircleHelp } from "lucide-react";
 import { LayoutList } from "lucide-react";
 import { ListChecks } from "lucide-react";
 import { Plus } from "lucide-react";
@@ -34,7 +35,7 @@ export default function Page() {
 
   return (
     <div className="grid justify-center">
-      <Tabs defaultValue="account" className="w-[600px] ">
+      <Tabs defaultValue="pending" className="w-[800px] ">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="pending">
             <span className="px-2 py-1 rounded transition-all duration-300 text-[#683142] hover:bg-white hover:shadow-md">
@@ -52,8 +53,8 @@ export default function Page() {
             </span>
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="earring">
-          <Card>
+        <TabsContent value="pending">
+          <Card className="w-full">
             <CardHeader>
               <CardDescription className="text-center">
                 ¡Hola care pipi!
@@ -61,15 +62,49 @@ export default function Page() {
             </CardHeader>
           </Card>
         </TabsContent>
+
+        {/* Modulo de tareas finalizadas */}
         <TabsContent value="finished">
-          <Card className="w-full">
-            <CardHeader>
-              <CardDescription className="text-center">
-                Chupa pija
-              </CardDescription>
-            </CardHeader>
+          <Card className="overflow-hidden w-full">
+            <div className="flex">
+
+              {/* Columna izquierda */}
+              <div className="w-1/2 border-r">
+                <div className="border-b">
+                  <header className="px-6 py-4">
+                    <h1 className="text-3xl font-bold text-center">
+                      Tareas finalizadas
+                    </h1>
+                  </header>
+                </div>
+                <CardHeader>
+                  <CardDescription className="text-center">
+                    Contenido 
+                  </CardDescription>
+                </CardHeader>
+              </div>
+
+              {/* Columna derecha */}
+              <div className="w-1/2">
+                <div className="border-b">
+                  <header className="px-6 py-4">
+                    <h1 className="text-3xl font-bold text-center">
+                      Detalle
+                    </h1>
+                  </header>
+                </div>
+
+                <CardHeader>
+                  <CardDescription className="text-center">
+                    Contenido 
+                  </CardDescription>
+                </CardHeader>
+                
+              </div>
+            </div>
           </Card>
         </TabsContent>
+
 
         <TabsContent value="create">
           <Card className="overflow-hidden w-full">
