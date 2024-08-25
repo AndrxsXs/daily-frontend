@@ -21,6 +21,8 @@ import { Plus } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { redirect } from "next/navigation";
 
+import React, { useState } from "react";
+
 export default function Page() {
   const { data: session, status } = useSession();
 
@@ -32,6 +34,9 @@ export default function Page() {
     redirect("/start");
     return <p>Acceso denegado</p>;
   }
+
+  // Estado para controlar que se vea el textarea en tareas finalizadas.
+  const [showTextarea, setShowTextarea] = useState(false);
 
   return (
     <div className="grid justify-center">
@@ -83,7 +88,8 @@ export default function Page() {
                       <Input
                         readOnly
                         value="Nombre de la tarea"
-                        className="flex-grow"
+                        className="flex-grow cursor-pointer"
+                        onClick={() => setShowTextarea(true)}
                       />
                       <Button variant="outline">Rehacer</Button>
                     </div>
@@ -99,28 +105,30 @@ export default function Page() {
                 </div>
                 <CardHeader>
                   <CardDescription>
-                    <div className="flex justify-between items-center mb-2">
-                      <Label htmlFor="message">Nombre de la tarea</Label>
-                      <Button variant="ghost">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-
-                    <Textarea
-                      id="message"
-                      className="mt-1"
-                      readOnly
-                      style={{
-                        outline: "none",
-                        boxShadow: "none",   
-                      }}
-                      // Para que conserve el color del border y no cambie al dar click
-                      onFocus={(e) => {
-                        e.target.style.border = e.target.style.border;
-                        e.target.style.outline = "none";
-                      }}
-                    />
-
+                    {showTextarea && (
+                      <>
+                        <div className="flex justify-between items-center mb-2">
+                          <Label htmlFor="message">Nombre de la tarea</Label>
+                          <Button variant="ghost">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        <Textarea
+                          id="message"
+                          className="mt-1"
+                          readOnly
+                          style={{
+                            outline: "none",
+                            boxShadow: "none",
+                            
+                          }}
+                          onFocus={(e) => {
+                            e.target.style.border = e.target.style.border;
+                            e.target.style.outline = "none";
+                          }}
+                        />
+                      </>
+                    )}
                   </CardDescription>
                 </CardHeader>
               </div>
