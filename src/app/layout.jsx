@@ -14,6 +14,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
+      <head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <link rel="icon" href="/public/favicon.svg" />
+        {/* <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href={inter.url}
+          rel="stylesheet"
+          crossOrigin="anonymous"
+        /> */}
+      </head>
       <body
         className={`${inter.className} transition-shadow duration-300 ease-in-out grid grid-rows-[auto,1fr,auto] min-h-screen`}
       >
