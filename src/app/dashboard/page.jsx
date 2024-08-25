@@ -57,18 +57,26 @@ export default function Page() {
         </TabsContent>
 
         <TabsContent value="create">
-          <Card>
-            <CardHeader>
-              <CardDescription className="text-center">
-                Ana la más linda
-              </CardDescription>
-              <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="name">Nombre tarea</Label>
-                <Input id="name" />
-              </div>
-              <div className="grid w-full gap-1.5">
-                <Label htmlFor="message">Detalles</Label>
-                <Textarea  id="message" />
+          <Card className="overflow-hidden">
+            <div className="border-b">
+              <header className="px-6 py-4">
+                <h1 className="text-3xl font-bold text-center">Crear tarea</h1>
+              </header>
+            </div>
+            <CardHeader className="px-6 py-4">
+              <div className="grid w-full max-w-sm items-center gap-4">
+                <div>
+                  <Label htmlFor="name">Nombre tarea</Label>
+                  <Input id="name" className="mt-1" />
+                </div>
+                <div>
+                  <Label htmlFor="message">Detalles</Label>
+                  <Textarea id="message" className="mt-1" />
+                </div>
+                <Button className="mt-4">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Crear
+                </Button>
               </div>
             </CardHeader>
           </Card>
