@@ -1,4 +1,8 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+
+import { useSession } from "next-auth/react";
 import {
   Card,
   CardContent,
@@ -10,18 +14,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CircleHelp } from "lucide-react";
 import { LayoutList } from "lucide-react";
 import { ListChecks } from "lucide-react";
 import { Plus } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
+import { redirect } from "next/navigation";
 
 export default function Page() {
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  if (status === "unauthenticated") {
+    redirect("/start");
+    return <p>Acceso denegado</p>;
+  }
+
   return (
     <div className="grid justify-center">
       <Tabs defaultValue="account" className="w-[600px] ">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="earring">
+          <TabsTrigger value="pending">
             <span className="px-2 py-1 rounded transition-all duration-300 text-[#683142] hover:bg-white hover:shadow-md">
               <LayoutList className="inline h-4 w-4" /> Pendientes
             </span>
@@ -38,7 +53,7 @@ export default function Page() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="earring">
-          <Card className="w-full">
+          <Card>
             <CardHeader>
               <CardDescription className="text-center">
                 ¡Hola care pipi!
