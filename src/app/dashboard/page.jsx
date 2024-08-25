@@ -102,12 +102,12 @@ export default function Page() {
                 <CardHeader>
                   <CardDescription className="text-center">
                     <div className="flex items-center space-x-2">
-                      <Input
-                        readOnly
-                        value="Nombre de la tarea"
-                        className="flex-grow cursor-pointer"
+                      <p
+                        className="flex-grow cursor-pointer border rounded-md px-3 py-2 text-sm leading-5 text-gray-900 bg-white"
                         onClick={() => setShowTextarea(true)}
-                      />
+                      >
+                        Nombre de la tarea
+                      </p>
                       <Button variant="outline">Rehacer</Button>
                     </div>
                   </CardDescription>
@@ -137,7 +137,6 @@ export default function Page() {
                           style={{
                             outline: "none",
                             boxShadow: "none",
-                            
                           }}
                           onFocus={(e) => {
                             e.target.style.border = e.target.style.border;
