@@ -44,7 +44,8 @@ export default function Page() {
         <TabsList
           className="grid w-full grid-cols-3 gap-2
           text-tinto-500
-          dark:text-tinto-200"
+          dark:text-tinto-200
+          bg-[#d3b19e]"
         >
           <TabsTrigger
             value="pending"
