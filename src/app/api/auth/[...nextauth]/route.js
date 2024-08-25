@@ -11,7 +11,7 @@ export const authOptions = {
       },
       async authorize(credentials) {
         const res = await fetch(
-          "https://confident-cooperation-production.up.railway.app//login",
+          "https://confident-cooperation-production.up.railway.app/login",
           {
             method: "POST",
             body: JSON.stringify(credentials),
@@ -30,13 +30,11 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.accessToken = user.token;
         token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      session.accessToken = token.accessToken;
       session.user.id = token.id;
       return session;
     },
@@ -47,7 +45,7 @@ export const authOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET, // Asegúrate de configurar esto en tu .env
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);
