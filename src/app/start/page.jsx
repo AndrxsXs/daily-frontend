@@ -79,7 +79,6 @@ export default function Page() {
         }
       );
       if (response.ok) {
-        console.log("Registro exitoso");
         // Iniciar sesión automáticamente después del registro
         await signIn("credentials", {
           redirect: false,
@@ -196,7 +195,7 @@ export default function Page() {
                 )}
               </CardFooter>
             </form>
-            {error && <p className="text-red-500 text-center">{error}</p>}
+            {error && <p className="text-red-500 text-center mb-4">{error}</p>}
           </Card>
         </TabsContent>
       </Tabs>
