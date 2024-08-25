@@ -42,7 +42,7 @@ export default function Page() {
     setError("Credenciales inválidas");
   };
 
-  const handleLogin = async (e, credentials) => {
+  const handleLogin = async (e, credentials = loginData) => {
     e.preventDefault();
     setError("");
     try {
