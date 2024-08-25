@@ -94,7 +94,7 @@ export default function Page() {
                   <CardDescription className="text-center">
                     <div className="flex items-center space-x-2">
                       <p
-                        className="flex-grow cursor-pointer border rounded-md px-3 py-2 text-sm leading-5 text-gray-900 bg-white"
+                        className="flex-grow cursor-pointer border rounded-md px-3 py-2 text-sm leading-5 text-gray-900 "
                         onClick={() => setShowTextarea(true)}
                       >
                         Nombre de la tarea
@@ -160,7 +160,7 @@ export default function Page() {
                   <CardDescription className="text-center">
                     <div className="flex items-center space-x-2">
                       <p
-                        className="flex-grow cursor-pointer border rounded-md px-3 py-2 text-sm leading-5 text-gray-900 bg-white"
+                        className="flex-grow cursor-pointer border rounded-md px-3 py-2 text-sm leading-5 text-gray-900 "
                         onClick={() => setShowTextarea(true)}
                       >
                         Nombre de la tarea
