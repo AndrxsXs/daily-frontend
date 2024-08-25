@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Trash2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { LayoutList } from "lucide-react";
 import { ListChecks } from "lucide-react";
 import { Plus } from "lucide-react";
@@ -121,19 +122,28 @@ export default function Page() {
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
-                        <Textarea
-                          id="message"
-                          className="mt-1"
-                          readOnly
-                          style={{
-                            outline: "none",
-                            boxShadow: "none",
-                          }}
-                          onFocus={(e) => {
-                            e.target.style.border = e.target.style.border;
-                            e.target.style.outline = "none";
-                          }}
-                        />
+                        <div className="relative">
+                          <Textarea
+                            id="message"
+                            className="mt-1 pr-24 pb-10" 
+                            readOnly
+                            style={{
+                              outline: "none",
+                              boxShadow: "none",
+                              resize: "none", // No se si esto va
+                            }}
+                            onFocus={(e) => {
+                              e.target.style.border = e.target.style.border;
+                              e.target.style.outline = "none";
+                            }}
+                          />
+                          <Button
+                            className="absolute bottom-2 right-2" // Posicionamos el botón
+                            size="sm" 
+                          >
+                            <Pencil className="h-4 w-4 mr-1" /> Editar
+                          </Button>
+                        </div>
                       </>
                     )}
                   </CardDescription>
