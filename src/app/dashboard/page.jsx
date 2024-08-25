@@ -47,6 +47,8 @@ export default function Page() {
               <ListChecks className="inline h-4 w-4" /> Finalizadas
             </span>
           </TabsTrigger>
+
+
           <TabsTrigger value="create">
             <span className="px-2 py-1 rounded transition-all duration-300 text-[#683142] hover:bg-white hover:shadow-md">
               <Plus className="inline h-4 w-4" /> Crear tarea
@@ -63,11 +65,11 @@ export default function Page() {
           </Card>
         </TabsContent>
 
+
         {/* Modulo de tareas finalizadas */}
         <TabsContent value="finished">
           <Card className="overflow-hidden w-full">
             <div className="flex">
-
               {/* Columna izquierda */}
               <div className="w-1/2 border-r">
                 <div className="border-b">
@@ -79,27 +81,22 @@ export default function Page() {
                 </div>
                 <CardHeader>
                   <CardDescription className="text-center">
-                    Contenido 
+                    Contenido
                   </CardDescription>
                 </CardHeader>
               </div>
-
               {/* Columna derecha */}
               <div className="w-1/2">
                 <div className="border-b">
                   <header className="px-6 py-4">
-                    <h1 className="text-3xl font-bold text-center">
-                      Detalle
-                    </h1>
+                    <h1 className="text-3xl font-bold text-center">Detalle</h1>
                   </header>
                 </div>
-
                 <CardHeader>
                   <CardDescription className="text-center">
-                    Contenido 
+                    Contenido
                   </CardDescription>
                 </CardHeader>
-                
               </div>
             </div>
           </Card>
@@ -123,14 +120,17 @@ export default function Page() {
                   <Label htmlFor="message">Detalles</Label>
                   <Textarea id="message" className="mt-1" />
                 </div>
-                <Button className="mt-4">
-                  <Plus className="mr-2 h-4 w-4" />
-                  Crear
-                </Button>
+                <div className="flex justify-end">
+                  <Button className="mt-4 px-4 py-2">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Crear
+                  </Button>
+                </div>
               </div>
             </CardHeader>
           </Card>
         </TabsContent>
+
       </Tabs>
     </div>
   );
