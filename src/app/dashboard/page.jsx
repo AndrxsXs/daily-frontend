@@ -14,11 +14,12 @@ import { CircleHelp } from "lucide-react";
 import { LayoutList } from "lucide-react";
 import { ListChecks } from "lucide-react";
 import { Plus } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function Page() {
   return (
     <div className="grid justify-center">
-      <Tabs defaultValue="account" className="w-[400px]">
+      <Tabs defaultValue="account" className="w-[400px] ">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="earring">
             <span className="px-2 py-1 rounded transition-all duration-300 text-[#683142] hover:bg-white hover:shadow-md">
@@ -31,7 +32,7 @@ export default function Page() {
             </span>
           </TabsTrigger>
           <TabsTrigger value="create">
-           <span className="px-2 py-1 rounded transition-all duration-300 text-[#683142] hover:bg-white hover:shadow-md">
+            <span className="px-2 py-1 rounded transition-all duration-300 text-[#683142] hover:bg-white hover:shadow-md">
               <Plus className="inline h-4 w-4" /> Crear tarea
             </span>
           </TabsTrigger>
@@ -54,12 +55,21 @@ export default function Page() {
             </CardHeader>
           </Card>
         </TabsContent>
+
         <TabsContent value="create">
           <Card>
             <CardHeader>
               <CardDescription className="text-center">
                 Ana la más linda
               </CardDescription>
+              <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label htmlFor="name">Nombre tarea</Label>
+                <Input id="name" />
+              </div>
+              <div className="grid w-full gap-1.5">
+                <Label htmlFor="message">Detalles</Label>
+                <Textarea  id="message" />
+              </div>
             </CardHeader>
           </Card>
         </TabsContent>
