@@ -19,7 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 export default function Page() {
   return (
     <div className="grid justify-center">
-      <Tabs defaultValue="account" className="w-[400px] ">
+      <Tabs defaultValue="account" className="w-[600px] ">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="earring">
             <span className="px-2 py-1 rounded transition-all duration-300 text-[#683142] hover:bg-white hover:shadow-md">
@@ -38,7 +38,7 @@ export default function Page() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="earring">
-          <Card>
+          <Card className="w-full">
             <CardHeader>
               <CardDescription className="text-center">
                 ¡Hola care pipi!
@@ -47,7 +47,7 @@ export default function Page() {
           </Card>
         </TabsContent>
         <TabsContent value="finished">
-          <Card>
+          <Card className="w-full">
             <CardHeader>
               <CardDescription className="text-center">
                 Chupa pija
@@ -57,14 +57,14 @@ export default function Page() {
         </TabsContent>
 
         <TabsContent value="create">
-          <Card className="overflow-hidden">
+          <Card className="overflow-hidden w-full">
             <div className="border-b">
               <header className="px-6 py-4">
                 <h1 className="text-3xl font-bold text-center">Crear tarea</h1>
               </header>
             </div>
             <CardHeader className="px-6 py-4">
-              <div className="grid w-full max-w-sm items-center gap-4">
+              <div className="grid w-full items-center gap-4">
                 <div>
                   <Label htmlFor="name">Nombre tarea</Label>
                   <Input id="name" className="mt-1" />
