@@ -24,8 +24,7 @@ export default function Page() {
           <Card>
             <CardHeader>
               <CardDescription className="text-center">
-                ¡Hola! Organiza tu día y mantén tus tareas bajo
-                control.
+                ¡Hola! Organiza tu día y mantén tus tareas bajo control.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -41,7 +40,9 @@ export default function Page() {
             <CardFooter>
               <Button className="w-full">Iniciar sesión</Button>
             </CardFooter>
-            <CardDescription className="text-center">¿Nuevo usuario? Registrate</CardDescription>
+            <CardDescription className="text-center">
+              ¿Nuevo usuario? Registrate
+            </CardDescription>
           </Card>
         </TabsContent>
         <TabsContent value="password">

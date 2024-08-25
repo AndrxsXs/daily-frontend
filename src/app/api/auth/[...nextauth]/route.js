@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -11,7 +11,7 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         const res = await fetch(
-          "https://confident-cooperation-production.up.railway.app/login",
+          "https://confident-cooperation-production.up.railway.app//login",
           {
             method: "POST",
             body: JSON.stringify(credentials),
@@ -27,21 +27,29 @@ const handler = NextAuth({
       },
     }),
   ],
-  pages: {
-    signIn: "/start",
-  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        token.accessToken = user.token;
         token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
+      session.accessToken = token.accessToken;
       session.user.id = token.id;
       return session;
     },
   },
-});
+  pages: {
+    signIn: "/start",
+  },
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET, // Asegúrate de configurar esto en tu .env
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
