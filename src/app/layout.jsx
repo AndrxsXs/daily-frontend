@@ -1,37 +1,28 @@
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
+import { Merriweather_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import TopHeader from "@/components/ui/topheader";
 import ClientSessionProvider from "@/components/auth/ClientSessionProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
+const merriweatherSans = Merriweather_Sans({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Daily | Inicio",
+  title: "Daily",
   description: "Daily es una simple aplicación de tareas diarias.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <link rel="icon" href="/public/favicon.svg" />
-        {/* <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href={inter.url}
-          rel="stylesheet"
-          crossOrigin="anonymous"
-        /> */}
-      </head>
       <body
-        className={`${inter.className} transition-shadow duration-300 ease-in-out grid grid-rows-[auto,1fr,auto] min-h-screen`}
+        className={`${merriweatherSans.className} transition-shadow duration-300 ease-in-out grid grid-rows-[auto,1fr,auto] min-h-screen`}
       >
         <ClientSessionProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
