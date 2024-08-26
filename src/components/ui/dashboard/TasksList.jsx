@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { AuthFetch } from "@/utils/AuthFetch";
 import { useSession } from "next-auth/react";
-import { Pencil, Check, X } from "lucide-react";
+import { Pencil, Check, X, Loader2 } from "lucide-react";
 import FinishTask from "./FinishTask";
 import DeleteTask from "./DeleteTask";
 
@@ -17,6 +17,7 @@ export default function TasksRoot({ isPending }) {
   const [tasks, setTasks] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleTaskClick = (task) => {
     setSelectedTask(task);
@@ -26,6 +27,7 @@ export default function TasksRoot({ isPending }) {
 
   const fetchTasks = async () => {
     try {
+      setLoading(true);
       const response = await AuthFetch(
         `${process.env.BACKEND_URL}/tareas/${userId}`,
         {
@@ -35,10 +37,14 @@ export default function TasksRoot({ isPending }) {
           },
         }
       );
-      const filteredTasks = response.filter((task) => task.finalizado !== isPending);
+      const filteredTasks = response.filter(
+        (task) => task.finalizado !== isPending
+      );
       setTasks(filteredTasks);
     } catch (error) {
       console.error("Error obteniendo las tareas:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,7 +56,7 @@ export default function TasksRoot({ isPending }) {
     fetchTasks();
     setSelectedTask(null);
     setIsEditing(false);
-  }
+  };
 
   const handleEditStart = () => {
     setIsEditing(true);
@@ -71,7 +77,7 @@ export default function TasksRoot({ isPending }) {
         body: JSON.stringify(editedTask),
       });
       await fetchTasks();
-      const updatedTask = tasks.find(task => task.id === editedTask.id);
+      const updatedTask = tasks.find((task) => task.id === editedTask.id);
       setSelectedTask(updatedTask);
       setEditedTask(updatedTask);
       setIsEditing(false);
@@ -82,7 +88,7 @@ export default function TasksRoot({ isPending }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedTask(prev => ({ ...prev, [name]: value }));
+    setEditedTask((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -93,28 +99,40 @@ export default function TasksRoot({ isPending }) {
           <div className="border-b">
             <header className="px-6 py-4">
               <h1 className="text-3xl font-bold text-center">
-                Tareas {isPending ? 'pendientes' : 'finalizadas'}
+                Tareas {isPending ? "pendientes" : "finalizadas"}
               </h1>
             </header>
           </div>
           <CardHeader>
             <CardDescription className="text-center">
-              {tasks.length > 0 ? (
-                tasks.map((task) => (
-                  <div
-                    key={task.id}
-                    className="flex items-center space-x-2 space-y-1 cursor-pointer"
-                    onClick={() => handleTaskClick(task)}
-                  >
-                    <p className="flex-grow border rounded-md px-3 py-2 text-sm leading-5 text-gray-900">
-                      {task.nombre}
-                    </p>
-                    {isPending && <FinishTask taskId={task.id} reload={reload} />}
-                    {/* <DeleteTask taskId={task.id} reload={reload} /> */}
-                  </div>
-                ))
+              {!loading ? (
+                tasks.length > 0 ? (
+                  tasks.map((task) => (
+                    <div
+                      key={task.id}
+                      className="flex items-center space-x-2 my-4 cursor-pointer"
+                    >
+                      <p
+                        className={`flex-grow border rounded-md px-3 py-2 h-[40px] text-sm leading-5 text-gray-900 cursor-pointer hover:bg-tinto-300 active:bg-tinto-400 ${
+                          selectedTask?.id === task.id ? "bg-tinto-200" : ""
+                        }`}
+                        onClick={() => handleTaskClick(task)}
+                      >
+                        {task.nombre}
+                      </p>
+                      {isPending && (
+                        <FinishTask taskId={task.id} reload={reload} />
+                      )}
+                      {/* <DeleteTask taskId={task.id} reload={reload} /> */}
+                    </div>
+                  ))
+                ) : (
+                  <p>
+                    No hay tareas {isPending ? "pendientes" : "finalizadas"}.
+                  </p>
+                )
               ) : (
-                <p>No hay tareas {isPending ? 'pendientes' : 'finalizadas'}.</p>
+                <Loader2 className="h-8 w-8 mx-auto animate-spin" />
               )}
             </CardDescription>
           </CardHeader>
@@ -148,7 +166,11 @@ export default function TasksRoot({ isPending }) {
                       id="task-details"
                       name="descripcion"
                       className="mt-1 pr-24 pb-10"
-                      value={isEditing ? editedTask.descripcion : selectedTask.descripcion}
+                      value={
+                        isEditing
+                          ? editedTask.descripcion
+                          : selectedTask.descripcion
+                      }
                       onChange={handleInputChange}
                       readOnly={!isEditing}
                       style={{
@@ -157,10 +179,14 @@ export default function TasksRoot({ isPending }) {
                         resize: "none",
                       }}
                     />
-                    {isPending && (
-                      isEditing ? (
+                    {isPending &&
+                      (isEditing ? (
                         <div className="absolute bottom-2 right-2 space-x-2">
-                          <Button size="sm" onClick={handleEditCancel}>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={handleEditCancel}
+                          >
                             <X className="h-4 w-4 mr-1" /> Cancelar
                           </Button>
                           <Button size="sm" onClick={handleEditComplete}>
@@ -168,11 +194,14 @@ export default function TasksRoot({ isPending }) {
                           </Button>
                         </div>
                       ) : (
-                        <Button className="absolute bottom-2 right-2" size="sm" onClick={handleEditStart}>
+                        <Button
+                          className="absolute bottom-2 right-2"
+                          size="sm"
+                          onClick={handleEditStart}
+                        >
                           <Pencil className="h-4 w-4 mr-1" /> Editar
                         </Button>
-                      )
-                    )}
+                      ))}
                   </div>
                 </>
               ) : (

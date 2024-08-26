@@ -12,7 +12,7 @@ import { useState } from "react";
 
 import { AuthFetch } from "@/utils/AuthFetch";
 
-export default function CreateTask() {
+export default function CreateTask({ handleCancel }) {
   const { data: session, status } = useSession();
   const userId = session?.user.id;
   const [nombre, setNombre] = useState("");
@@ -85,7 +85,9 @@ export default function CreateTask() {
               />
             </div>
             <div className="flex justify-end space-x-4">
-              <Button variant="outline">Cancelar</Button>
+              <Button variant="outline" onClick={handleCancel}>
+                Cancelar
+              </Button>
               {/* <Button variant="outline">Cancelar</Button> */}
               {!loading ? (
                 <Button className="px-4 py-2" type="submit">

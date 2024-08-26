@@ -35,6 +35,11 @@ import Pending from "@/components/ui/dashboard/Pending";
 export default function Page() {
   // Se obtiene el estado de la sesión.
   const { data: session, status } = useSession();
+  const [selectedTab, setSelectedTab] = useState("pending");
+
+  const handleCancel = () => {
+    setSelectedTab("pending");
+  };
 
   if (status === "loading") {
     return <p>Loading...</p>;
@@ -44,7 +49,12 @@ export default function Page() {
   } else
     return (
       <main className="grid justify-center">
-        <Tabs defaultValue="pending" className="w-[60dvw] max-w-[1000px]">
+        <Tabs
+          value={selectedTab}
+          onValueChange={setSelectedTab}
+          defaultValue="pending"
+          className="w-[60dvw] max-w-[1000px]"
+        >
           <TabsList
             className="grid w-full grid-cols-3 gap-2
           text-tinto-500
@@ -92,7 +102,7 @@ export default function Page() {
           </TabsContent>
 
           <TabsContent value="create">
-            <CreateTask />
+            <CreateTask handleCancel={handleCancel} />
           </TabsContent>
         </Tabs>
       </main>
