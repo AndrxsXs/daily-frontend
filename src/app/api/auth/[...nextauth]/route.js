@@ -1,7 +1,18 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import jwt from "jsonwebtoken";
 
-export const authOptions = {
+function getUserIdFromToken(token) {
+  try {
+    const decoded = jwt.decode(token);
+    return decoded?.id;
+  } catch (error) {
+    console.error("Error decodificando token:", error);
+    return null;
+  }
+}
+
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -10,14 +21,11 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const res = await fetch(
-          "https://confident-cooperation-production.up.railway.app/login",
-          {
-            method: "POST",
-            body: JSON.stringify(credentials),
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+        const res = await fetch(`${process.env.BACKEND_URL}/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(credentials),
+        });
         const user = await res.json();
 
         if (res.ok && user) {
@@ -30,24 +38,21 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
+        token.accessToken = user.token;
+        token.username = user.username; // Add the user's name to the token
       }
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.id;
+      session.accessToken = token.accessToken;
+      session.user.username = token.username; // Save the user's name in the session
+      session.user.id = getUserIdFromToken(token.accessToken);
       return session;
     },
   },
   pages: {
     signIn: "/start",
   },
-  session: {
-    strategy: "jwt",
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-};
-
-const handler = NextAuth(authOptions);
+});
 
 export { handler as GET, handler as POST };
