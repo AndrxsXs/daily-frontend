@@ -71,7 +71,7 @@ export default function Page() {
     setError("");
     try {
       const response = await fetch(
-        "https://confident-cooperation-production.up.railway.app/register",
+        process.env.BACKEND_URL,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
