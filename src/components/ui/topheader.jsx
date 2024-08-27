@@ -17,7 +17,7 @@ export default function TopHeader() {
       </Link>
       <section className="justify-self-end self-center p-4 flex items-center gap-4">
         {session ? <LogoutButton /> : null}
-        {/* <ModeToggle /> */}
+        <ModeToggle />
       </section>
     </header>
   );
