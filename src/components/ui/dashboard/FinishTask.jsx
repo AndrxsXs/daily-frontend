@@ -17,7 +17,7 @@ export default function FinishTask({ taskId, reload }) {
           "Content-Type": "application/json",
         },
       });
-    //   console.log("Tarea finalizada");
+      //   console.log("Tarea finalizada");
     } catch (error) {
       console.error("Error finalizando la tarea:", error);
     } finally {
@@ -29,11 +29,9 @@ export default function FinishTask({ taskId, reload }) {
   return (
     <>
       {!loading ? (
-        <Button variant="outline" onClick={handleFinishTask}>
-          Finalizar
-        </Button>
+        <Button onClick={handleFinishTask}>Finalizar</Button>
       ) : (
-        <Button variant="outline" disabled>
+        <Button disabled>
           <Loader2 className="h-4 w-4" />
           Finalizando...
         </Button>
