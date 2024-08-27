@@ -18,6 +18,7 @@ export default function TasksRoot({ isPending }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [editing, setEditing] = useState(false);
 
   const handleTaskClick = (task) => {
     setSelectedTask(task);
@@ -69,6 +70,7 @@ export default function TasksRoot({ isPending }) {
 
   const handleEditComplete = async () => {
     try {
+      setEditing(true);
       await AuthFetch(`${process.env.BACKEND_URL}/tareas`, {
         method: "PUT",
         headers: {
@@ -78,11 +80,14 @@ export default function TasksRoot({ isPending }) {
       });
       await fetchTasks();
       const updatedTask = tasks.find((task) => task.id === editedTask.id);
-      setSelectedTask(updatedTask);
+      console.log("updated: ", updatedTask);
+      setSelectedTask(null);
       setEditedTask(updatedTask);
       setIsEditing(false);
     } catch (error) {
-      console.error("Error updating task:", error);
+      console.error("Error actualizando tarea: ", error);
+    } finally {
+      setEditing(false);
     }
   };
 
@@ -113,8 +118,8 @@ export default function TasksRoot({ isPending }) {
                       className="flex items-center space-x-2 my-4 cursor-pointer"
                     >
                       <p
-                        className={`flex-grow border rounded-md px-3 py-2 h-[40px] text-sm leading-5 text-gray-900 cursor-pointer hover:bg-tinto-300 active:bg-tinto-400 ${
-                          selectedTask?.id === task.id ? "bg-tinto-200" : ""
+                        className={`flex-grow border rounded-md px-3 py-2 h-[40px] text-sm leading-5 text-gray-900 cursor-pointer hover:bg-[#dfc7b9] active:bg-[#d0aa9a] ${
+                          selectedTask?.id === task.id ? "bg-[#ecded5]" : ""
                         }`}
                         onClick={() => handleTaskClick(task)}
                       >
@@ -189,8 +194,21 @@ export default function TasksRoot({ isPending }) {
                           >
                             <X className="h-4 w-4 mr-1" /> Cancelar
                           </Button>
-                          <Button size="sm" onClick={handleEditComplete}>
-                            <Check className="h-4 w-4 mr-1" /> Guardar
+                          <Button
+                            size="sm"
+                            disabled={editing}
+                            onClick={handleEditComplete}
+                          >
+                            {editing ? (
+                              <>
+                                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                Guardando...
+                              </>
+                            ) : (
+                              <>
+                                <Check className="h-4 w-4 mr-1" /> Guardar
+                              </>
+                            )}
                           </Button>
                         </div>
                       ) : (
