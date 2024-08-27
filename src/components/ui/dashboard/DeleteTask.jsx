@@ -28,7 +28,11 @@ export default function DeleteTask({ taskId, reload }) {
   return (
     <>
       {!loading ? (
-        <Button variant="ghost" onClick={handleDeleteTask}>
+        <Button
+          variant="ghost"
+          className=" hover:bg-[#dfc7b9] active:bg-[#d0aa9a]"
+          onClick={handleDeleteTask}
+        >
           <Trash2 className="h-4 w-4" />
         </Button>
       ) : (
