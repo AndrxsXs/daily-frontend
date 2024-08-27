@@ -14,14 +14,20 @@ export default function LogoutButton() {
     <>
       {!loading ? (
         <Button
+          variant="outline"
           onClick={handleLogout}
-          className="px-4 py-2 bg-tinto-50 text-[#800020] rounded  hover:bg-[#d3b19e]"
+          className="px-4 py-2  text-[#800020] rounded  "
         >
-          <LogOut className="inline h-4 w-4 mr-2"/>
-         Cerrar sesión
+          <LogOut className="inline h-4 w-4 mr-2" />
+          Cerrar sesión
         </Button>
       ) : (
-        <Button className="px-4 py-2 bg-tinto-50 text-[#800020] rounded" disabled>
+        <Button
+          className="px-4 py-2 
+          // bg-tinto-50 text-[#800020]
+          rounded"
+          disabled
+        >
           Cerrando sesión...
         </Button>
       )}
