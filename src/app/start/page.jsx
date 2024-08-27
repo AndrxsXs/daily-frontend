@@ -61,6 +61,7 @@ export default function Page() {
       }
     } catch (error) {
       setError("Ocurrió un error durante el inicio de sesión");
+      console.log(error);
       setLoading(false);
     }
   };
@@ -70,14 +71,11 @@ export default function Page() {
     setSending(true);
     setError("");
     try {
-      const response = await fetch(
-        process.env.BACKEND_URL,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(registerData),
-        }
-      );
+      const response = await fetch(`${process.env.BACKEND_URL}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(registerData),
+      });
       if (response.ok) {
         // Iniciar sesión automáticamente después del registro
         await signIn("credentials", {
